@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class Principal {
     public static void main(String[] args) {
@@ -14,8 +15,16 @@ public class Principal {
             System.out.println("0 - Sair");
             System.out.print("Escolha uma opçao: ");
             
-            opcao = sc.nextInt();
-            sc.nextLine(); 
+	while (true) {
+		try {
+			opcao = sc.nextInt();
+			sc.nextLine();
+			break;
+		} catch (InputMismatchException e) {
+			System.out.print("Entrada inválida. Digite um número: ");
+			sc.nextLine();
+		}
+	}
 
             switch (opcao) {
                 case 1:
@@ -23,9 +32,18 @@ public class Principal {
                     String nome = sc.nextLine();
                     System.out.print("Curso: ");
                     String curso = sc.nextLine();
-                    System.out.print("Idade: ");
-                    int idade = sc.nextInt();
-                    sc.nextLine();
+				int idade;
+				while (true) {
+					try {
+						System.out.print("Idade: ");
+						idade = sc.nextInt();
+						sc.nextLine();
+						break;
+					} catch (InputMismatchException e) {
+						System.out.println("Entrada inválida. Digite um número inteiro para a idade.");
+						sc.nextLine();
+					}
+				}
                     
                     AlunoManager.inserirAluno(nome, curso, idade);
                     break;
@@ -35,24 +53,51 @@ public class Principal {
                     break;
 
                 case 3:
-                    System.out.print("Qual ID do aluno deseja atualizar? ");
-                    int idAtualizar = sc.nextInt();
-                    sc.nextLine();
+				int idAtualizar;
+				while (true) {
+					try {
+						System.out.print("Qual ID do aluno deseja atualizar? ");
+						idAtualizar = sc.nextInt();
+						sc.nextLine();
+						break;
+					} catch (InputMismatchException e) {
+						System.out.println("Entrada inválida. Digite um número inteiro para o ID.");
+						sc.nextLine();
+					}
+				}
                     System.out.print("Novo nome do Aluno: ");
                     String novoNome = sc.nextLine();
                     System.out.print("Novo Curso: ");
                     String novoCurso = sc.nextLine();
-                    System.out.print("Nova Idade: ");
-                    int novaIdade = sc.nextInt();
-                    sc.nextLine();
+				int novaIdade;
+				while (true) {
+					try {
+						System.out.print("Nova Idade: ");
+						novaIdade = sc.nextInt();
+						sc.nextLine();
+						break;
+					} catch (InputMismatchException e) {
+						System.out.println("Entrada inválida. Digite um número inteiro para a idade.");
+						sc.nextLine();
+					}
+				}
 
                     AlunoManager.atualizarAluno(idAtualizar, novoNome, novoCurso, novaIdade);
                     break;
 
                 case 4:
-                    System.out.print("Qual ID do aluno deseja excluir? ");
-                    int idExcluir = sc.nextInt();
-                    sc.nextLine();
+				int idExcluir;
+				while (true) {
+					try {
+						System.out.print("Qual ID do aluno deseja excluir? ");
+						idExcluir = sc.nextInt();
+						sc.nextLine();
+						break;
+					} catch (InputMismatchException e) {
+						System.out.println("Entrada inválida. Digite um número inteiro para o ID.");
+						sc.nextLine();
+					}
+				}
                     
                     AlunoManager.excluirAluno(idExcluir);
                     break;
@@ -62,7 +107,7 @@ public class Principal {
                     break;
 
                 default:
-                    System.out.println("Opção inválida! Tente novamente.");
+                    System.out.println("Opçao inválida! Tente novamente.");
             }
         } while (opcao != 0);
 
